@@ -2,11 +2,15 @@ package dss.system.service;
 
 import dss.system.dto.BuildingDto;
 import dss.system.entity.Building;
+import java.util.List;
 
 public interface BuildingService {
-    Building save (Building building);
-    Building save (BuildingDto buildingDto);
-    void delete (Building building);
-    void delete (BuildingDto buildingDto);
 
+    BuildingDto save(BuildingDto buildingDto);
+
+    void delete(BuildingDto buildingDto);
+
+    List<BuildingDto> getAll();
+
+    List<BuildingDto> getByPropertiesList(List<Long> propertiesIds);
 }

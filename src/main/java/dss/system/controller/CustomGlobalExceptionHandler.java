@@ -1,15 +1,12 @@
 package dss.system.controller;
 
-import dss.system.exceptions.DataProcessingException;
 import dss.system.exceptions.ExceptionDetails;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

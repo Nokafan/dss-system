@@ -1,9 +1,10 @@
-package dss.system.service;
+package dss.system.service.implementation;
 
 import dss.system.dto.PropertyDto;
 import dss.system.entity.Property;
 import dss.system.exceptions.DataProcessingException;
 import dss.system.repository.PropertyRepository;
+import dss.system.service.PropertyService;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;

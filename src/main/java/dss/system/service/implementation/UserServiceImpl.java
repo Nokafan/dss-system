@@ -1,9 +1,10 @@
-package dss.system.service;
+package dss.system.service.implementation;
 
 import dss.system.dto.UserDto;
 import dss.system.entity.User;
 import dss.system.exceptions.DataProcessingException;
 import dss.system.repository.UserRepository;
+import dss.system.service.UserService;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
