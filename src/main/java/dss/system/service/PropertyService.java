@@ -13,4 +13,6 @@ public interface PropertyService {
     PropertyDto findById(Long id);
 
     void deleteById(Long id);
+
+    List<PropertyDto> findAll();
 }
