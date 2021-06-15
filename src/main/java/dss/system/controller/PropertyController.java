@@ -1,6 +1,6 @@
 package dss.system.controller;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import dss.system.dto.PropertyDto;
 import dss.system.service.PropertyService;
 import java.util.List;
@@ -21,7 +21,7 @@ public class PropertyController {
         this.propertyService = propertyService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<PropertyDto>> getAllProperty() {
         List<PropertyDto> propertyDtoList = propertyService.findAll();
         return new ResponseEntity<>(propertyDtoList, HttpStatus.OK);
