@@ -46,7 +46,7 @@ public class BuildingController {
     @GetMapping("/properties")
     public ResponseEntity<List<BuildingDto>> getByPropertiesList(@RequestBody List<Long> propertiesIds) {
         List<BuildingDto> buildingDtoList = buildingService.getByPropertiesList(propertiesIds);
-//        return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
+//        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
