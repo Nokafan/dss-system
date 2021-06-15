@@ -1,0 +1,1 @@
+CREATE SCHEMA `dss-system` DEFAULT CHARACTER SET utf8 ;
