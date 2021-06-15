@@ -1,9 +1,10 @@
-package dss.system.service;
+package dss.system.service.implementation;
 
 import dss.system.dto.BuildingPropertyDto;
 import dss.system.entity.BuildingProperty;
 import dss.system.exceptions.DataProcessingException;
 import dss.system.repository.BuildingPropertyRepository;
+import dss.system.service.BuildingPropertyService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,7 +45,7 @@ public class BuildingPropertyServiceImpl implements BuildingPropertyService {
 
     @Override
     public List<BuildingPropertyDto> getVariationsByTitleId(long id) {
-        return buildingPropertyRepository.getAllByTitle(id)
+        return buildingPropertyRepository.getAllByTitle_Id(id)
                 .stream()
                 .map(buildingProperty -> modelMapper.map(buildingProperty, BuildingPropertyDto.class))
                 .collect(Collectors.toList());
