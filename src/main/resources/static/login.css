@@ -1,0 +1,109 @@
+
+#myModal {
+    max-width: 450px;
+    width: 95%;
+    height: 350px;
+    margin: 0 auto;
+    padding: 18px 9px;
+    border-radius: 4px;
+    background-color: rgba(255,255,255,.99);
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 90px;
+    margin: auto;
+    display: none;
+    opacity: 0;
+    z-index: 38;
+    text-align: center;
+}
+
+#myModal.forRegister {
+    max-width: 600px;
+    height: 450px;
+}
+
+#myModal h5{
+    color: #000;
+    font-family: Calibri, Arial, Verdana, sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+}
+#myModal #myModal__close {
+    width: 21px; height: 21px;
+    position: absolute;
+    top: 1px; right: 11px;
+    cursor: pointer;
+    display: block;
+    font-size: 29px;
+    color: #000;
+}
+#myOverlay {
+    z-index: 37;
+    position: fixed;
+    background-color: rgba(0,0,0,.6);
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    cursor :pointer;
+    display :none;
+}
+
+.loginList_wrapper,
+.registerList_wrapper{
+    padding: 30px;
+}
+
+.login_form_btn-area{
+    margin: 15px auto;
+}
+
+.pass_area,
+.email_area,
+.email_area-register,
+.pass_area-register,
+.confirm_pass_area-register{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pass_area span,
+.email_area span,
+.email_area-register span,
+.pass_area-register span,
+.confirm_pass_area-register span{
+    display: inline-block;
+    text-align: start;
+    margin: 15px 0 7px 10px;
+    width: 220px;
+}
+
+.loginList_wrapper input,
+.registerList_wrapper input{
+    width: 220px;
+    height: 30px;
+    padding: 4px 0px 4px 10px;
+    border-radius: 8px;
+    border: 1px solid #000;
+}
+
+.loginList_wrapper input:focus,
+.registerList_wrapper input:focus{
+    border: none;
+
+}
+
+.login_form_btn,
+.rigister_form_btn{
+    margin-top: 10px;
+    border: none;
+    color: #fff;
+    background-color: #06b085;
+    padding: 8px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.login_form_btn:hover,
+.rigister_form_btn:hover{
+    background-color: #727272;
+}
