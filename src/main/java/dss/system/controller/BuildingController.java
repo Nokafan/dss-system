@@ -27,13 +27,15 @@ public class BuildingController {
     }
 
     @PostMapping("/")
-    public BuildingDto saveBuilding(@Valid @RequestBody BuildingCreateDto buildingDto){
+    public BuildingDto saveBuilding(@Valid @RequestBody BuildingCreateDto buildingDto) {
         return buildingService.save(buildingDto);
     }
+
     @DeleteMapping("/")
-    public ResponseEntity deleteBuilding(@Valid @RequestBody BuildingDto buildingDto){
+    public ResponseEntity deleteBuilding(@Valid @RequestBody BuildingDto buildingDto) {
         boolean result = buildingService.delete(buildingDto);
-        return result ?  new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.CONFLICT);
+        return result ? new ResponseEntity(HttpStatus.OK)
+                : new ResponseEntity(HttpStatus.CONFLICT);
     }
 
     @GetMapping("/")
@@ -41,21 +43,16 @@ public class BuildingController {
         List<BuildingDto> buildingDtoList = buildingService.getAll();
         return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
     }
+
     @GetMapping("/list")
     public ResponseEntity<List<BuildingDto>> getAllBuildingsById(@RequestBody List<Long> ids) {
         List<BuildingDto> buildingDtoList = buildingService.getAllByIds(ids);
         return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
     }
 
-
-    @GetMapping("/by/properties")
-    public ResponseEntity<List<BuildingDto>> getByPropertiesList(@RequestBody List<Long> propertiesIds) {
-        List<BuildingDto> buildingDtoList = buildingService.getByPropertiesList(propertiesIds);
-        return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
-    }
-
     @GetMapping("/search")
-    public ResponseEntity<List<Long>> getByPropertiesList(@RequestBody SearchRequestDto searchRequestDto) {
+    public ResponseEntity<List<Long>> getByPropertiesList(
+            @RequestBody SearchRequestDto searchRequestDto) {
         List<Long> longList = buildingService.findAllByBuildingPropertiesIsIn(searchRequestDto);
         return new ResponseEntity<>(longList, HttpStatus.OK);
     }

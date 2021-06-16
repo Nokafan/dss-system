@@ -7,7 +7,6 @@ import dss.system.entity.User;
 import dss.system.exceptions.DataProcessingException;
 import dss.system.repository.UserRepository;
 import dss.system.service.UserService;
-import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
     public UserDto save(UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
         User savedUser = userRepository.save(user);
-       return modelMapper.map(savedUser, UserDto.class);
+        return modelMapper.map(savedUser, UserDto.class);
     }
 
     @Override
@@ -46,6 +45,7 @@ public class UserServiceImpl implements UserService {
     public UserDto findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .map(user -> modelMapper.map(user, UserDto.class))
-                .orElseThrow(() -> new DataProcessingException("Can`t find user by email: " + email));
+                .orElseThrow(() ->
+                        new DataProcessingException("Can`t find user by email: " + email));
     }
 }

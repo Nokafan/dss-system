@@ -23,7 +23,8 @@ public class BuildingPropertyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<List<BuildingPropertyDto>> getPropertyVariations(@PathVariable Long id) {
-        List<BuildingPropertyDto> variationsByTitleId = buildingPropertyService.getVariationsByTitleId(id);
+        List<BuildingPropertyDto> variationsByTitleId =
+                buildingPropertyService.getVariationsByTitleId(id);
         return new ResponseEntity<>(variationsByTitleId, HttpStatus.OK);
     }
 }

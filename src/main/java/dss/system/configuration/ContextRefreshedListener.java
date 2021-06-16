@@ -159,7 +159,7 @@ public class ContextRefreshedListener implements ApplicationListener<ContextRefr
                         "Більше 20 шт",
                         "Так",
                         "Менше 50%",
-                        "23	Так",
+                        "23 Так",
                         "Так",
                         "Так",
                         "Так",

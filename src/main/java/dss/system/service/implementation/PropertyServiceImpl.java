@@ -48,7 +48,8 @@ public class PropertyServiceImpl implements PropertyService {
     public PropertyDto findById(Long id) {
         return propertyRepository.findById(id)
                 .map(entity -> modelMapper.map(entity, PropertyDto.class))
-                .orElseThrow(() -> new DataProcessingException("Can`t get propertyDto by id: " + id));
+                .orElseThrow(() ->
+                        new DataProcessingException("Can`t get propertyDto by id: " + id));
     }
 
     @Override

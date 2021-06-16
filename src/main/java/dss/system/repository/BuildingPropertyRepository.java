@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BuildingPropertyRepository extends JpaRepository<BuildingProperty, Long> {
-    List<BuildingProperty> getAllByTitle_Id (Long id);
+    List<BuildingProperty> getAllByTitle_Id(Long id);
 }

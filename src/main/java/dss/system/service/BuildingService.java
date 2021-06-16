@@ -3,9 +3,7 @@ package dss.system.service;
 import dss.system.dto.BuildingCreateDto;
 import dss.system.dto.BuildingDto;
 import dss.system.dto.SearchRequestDto;
-import dss.system.entity.Building;
 import java.util.List;
-import org.springframework.data.repository.query.Param;
 
 public interface BuildingService {
 
@@ -16,9 +14,8 @@ public interface BuildingService {
     boolean delete(BuildingDto buildingDto);
 
     List<BuildingDto> getAll();
-    List<BuildingDto> getAllByIds(List<Long> ids);
 
-    List<BuildingDto> getByPropertiesList(List<Long> propertiesIds);
+    List<BuildingDto> getAllByIds(List<Long> ids);
 
     List<Long> findAllByBuildingPropertiesIsIn(SearchRequestDto searchRequestDto);
 }

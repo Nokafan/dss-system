@@ -1,9 +1,7 @@
 package dss.system.controller;
 
-import dss.system.dto.UserDto;
 import dss.system.dto.UserRegistrationDto;
 import dss.system.dto.UserResponseDto;
-import dss.system.entity.User;
 import dss.system.service.UserService;
 import javax.validation.Valid;
 import lombok.extern.log4j.Log4j;
@@ -33,7 +31,8 @@ public class UserController {
 
     @PostMapping("/registration")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRegistrationDto requestDto) {
+    public ResponseEntity<UserResponseDto> createUser(
+            @Valid @RequestBody UserRegistrationDto requestDto) {
         requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         UserResponseDto userDto = userService.create(requestDto);
         log.info("User created id: " + userDto.getId() + " email: " + userDto.getEmail());
