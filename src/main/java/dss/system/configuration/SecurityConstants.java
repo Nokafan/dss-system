@@ -9,4 +9,6 @@ public final class SecurityConstants {
     public static final String REGISTER_URL = "/api/user/registration";
     public static final String LOGIN = "/login";
     public static final String REGISTRATION = "/registration";
+    public static final String ROOT = "/";
+    public static final String STATIC = "/static/**";
 }

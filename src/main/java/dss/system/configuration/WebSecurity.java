@@ -3,7 +3,9 @@ package dss.system.configuration;
 import static dss.system.configuration.SecurityConstants.LOGIN;
 import static dss.system.configuration.SecurityConstants.REGISTER_URL;
 import static dss.system.configuration.SecurityConstants.REGISTRATION;
+import static dss.system.configuration.SecurityConstants.ROOT;
 import static dss.system.configuration.SecurityConstants.SIGN_UP_URL;
+import static dss.system.configuration.SecurityConstants.STATIC;
 
 import dss.system.security.CustomUserDetailService;
 import dss.system.security.JwtAuthenticationFilter;
@@ -43,7 +45,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers(REGISTER_URL, SIGN_UP_URL, LOGIN, REGISTRATION)
+                .antMatchers(REGISTER_URL, SIGN_UP_URL, LOGIN, REGISTRATION, ROOT, STATIC)
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
