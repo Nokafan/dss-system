@@ -38,10 +38,6 @@ public class BuildingPropertyServiceImpl implements BuildingPropertyService {
         return modelMapper.map(buildingProperty, BuildingPropertyDto.class);
     }
 
-    @Override
-    public void deleteById(Long id) {
-        buildingPropertyRepository.deleteById(id);
-    }
 
     @Override
     public List<BuildingPropertyDto> getVariationsByTitleId(long id) {

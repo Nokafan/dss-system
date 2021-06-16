@@ -8,7 +8,5 @@ public interface BuildingPropertyService {
 
     BuildingPropertyDto findById(Long id);
 
-    void deleteById(Long id);
-
     List<BuildingPropertyDto> getVariationsByTitleId(long id);
 }
