@@ -1,11 +1,14 @@
 package dss.system.configuration;
 
+import static dss.system.configuration.Constants.TEST_I_UA;
+
 import dss.system.entity.Building;
 import dss.system.entity.BuildingProperty;
 import dss.system.entity.Property;
-import dss.system.repository.BuildingPropertyRepository;
+import dss.system.entity.User;
 import dss.system.repository.BuildingRepository;
 import dss.system.repository.PropertyRepository;
+import dss.system.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,40 +16,45 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Log4j
 @Component
 public class ContextRefreshedListener implements ApplicationListener<ContextRefreshedEvent> {
-
+    private final BCryptPasswordEncoder passwordEncoder;
     private final PropertyRepository propertyRepository;
     private final BuildingRepository buildingRepository;
-    private final BuildingPropertyRepository buildingPropertyRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public ContextRefreshedListener(PropertyRepository propertyRepository,
+    public ContextRefreshedListener(BCryptPasswordEncoder passwordEncoder,
+                                    PropertyRepository propertyRepository,
                                     BuildingRepository buildingRepository,
-                                    BuildingPropertyRepository buildingPropertyRepository) {
+                                    UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.propertyRepository = propertyRepository;
         this.buildingRepository = buildingRepository;
-        this.buildingPropertyRepository = buildingPropertyRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         propertyRepository.saveAll(createDemoProperties());
         log.info("List of properties are saved");
-//        List<BuildingProperty> buildingOneProperties = buildingPropertyRepository.saveAll(createDemoBuildingOneProperties());
-//        List<BuildingProperty> buildingTwoProperties = buildingPropertyRepository.saveAll(createDemoBuildingTwoProperties());
-
         List<Building> demoBuilding = createDemoBuilding();
         demoBuilding.get(0).setBuildingProperties(createDemoBuildingOneProperties());
         demoBuilding.get(1).setBuildingProperties(createDemoBuildingTwoProperties());
-//        demoBuilding.get(0).setBuildingProperties(buildingOneProperties);
-//        demoBuilding.get(1).setBuildingProperties(buildingTwoProperties);
-
         buildingRepository.saveAll(demoBuilding);
         log.info("List of buildings are saved");
+
+        User user = User.builder()
+                .email(TEST_I_UA)
+                .password(passwordEncoder.encode("Password1"))
+                .build();
+        log.info("User created");
+        userRepository.save(user);
+        log.info("User saved");
 
     }
 

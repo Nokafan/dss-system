@@ -1,6 +1,7 @@
 package dss.system.controller;
 
 import dss.system.exceptions.ExceptionDetails;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -43,7 +44,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleNotFoundException(Exception exception,
                                                           WebRequest webRequest) {
-        ExceptionDetails exceptionDetails = new ExceptionDetails(new Date(),
+        ExceptionDetails exceptionDetails = new ExceptionDetails(LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
                 exception.getMessage(),
                 webRequest.getDescription(false));

@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BuildingPropertyDto {
-    private Long id;
+public class BuildingPropertyCreateDto {
     private PropertyDto title;
     private String value;
 }

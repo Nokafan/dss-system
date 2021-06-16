@@ -13,8 +13,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserResponseDto {
     private Long id;
-    private String name;
-    private String familyName;
-    private LocalDate dateOfBirth;
     private String email;
 }

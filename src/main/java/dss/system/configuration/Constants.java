@@ -14,4 +14,5 @@ public class Constants {
     public static final String MESSAGE_RANGE = "Should be bigger or equals 0, and less then 100";
     public static final String MESSAGE_STRING =
             "Length couldn't be less then 0 and more then 100 chars";
+
 }

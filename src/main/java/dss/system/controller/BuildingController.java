@@ -1,7 +1,10 @@
 package dss.system.controller;
 
+import dss.system.dto.BuildingCreateDto;
 import dss.system.dto.BuildingDto;
+import dss.system.dto.SearchRequestDto;
 import dss.system.service.BuildingService;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/building")
@@ -26,7 +27,7 @@ public class BuildingController {
     }
 
     @PostMapping("/")
-    public BuildingDto saveBuilding(@Valid @RequestBody BuildingDto buildingDto){
+    public BuildingDto saveBuilding(@Valid @RequestBody BuildingCreateDto buildingDto){
         return buildingService.save(buildingDto);
     }
     @DeleteMapping("/")
@@ -40,10 +41,22 @@ public class BuildingController {
         List<BuildingDto> buildingDtoList = buildingService.getAll();
         return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
     }
+    @GetMapping("/list")
+    public ResponseEntity<List<BuildingDto>> getAllBuildingsById(@RequestBody List<Long> ids) {
+        List<BuildingDto> buildingDtoList = buildingService.getAllByIds(ids);
+        return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
+    }
 
-    @GetMapping("/properties")
+
+    @GetMapping("/by/properties")
     public ResponseEntity<List<BuildingDto>> getByPropertiesList(@RequestBody List<Long> propertiesIds) {
         List<BuildingDto> buildingDtoList = buildingService.getByPropertiesList(propertiesIds);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Long>> getByPropertiesList(@RequestBody SearchRequestDto searchRequestDto) {
+        List<Long> longList = buildingService.findAllByBuildingPropertiesIsIn(searchRequestDto);
+        return new ResponseEntity<>(longList, HttpStatus.OK);
     }
 }

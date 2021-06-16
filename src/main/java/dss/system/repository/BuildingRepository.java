@@ -15,9 +15,10 @@ public interface BuildingRepository extends JpaRepository<Building, Long> {
     @Query(value = "SELECT b FROM Building b JOIN BuildingProperty bp WHERE bp.id IN :propertiesIds")
     List<Building> getAllByBuildingProperties(@Param("propertiesIds") List<Long> propertiesIds);
 
-    @Query(value = "select distinct b.id from `dss-system`.building " +
-            "join `dss-system`.building_properties bp " +
+    @Query(value = "select b.id from building b " +
+            "join building_properties bp " +
             "on b.id = bp.building_id " +
-            "where b.id in (1, 2) and bp.building_properties_id in (31)", nativeQuery = true)
-    List<Building> findAllByBuildingPropertiesIsIn( List<Long> propertiesIds);
+            "where b.id in (:buildingId) and bp.building_properties_id in (:buildingPropertiesId)", nativeQuery = true)
+    List<Long> findAllByBuildingPropertiesIsIn(@Param("buildingId") List<Long> buildingId,
+                                                   @Param("buildingPropertiesId") List<Long> buildingPropertiesId);
 }
