@@ -1,7 +1,5 @@
 package dss.system.dto;
 
-import java.time.LocalDate;
-import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

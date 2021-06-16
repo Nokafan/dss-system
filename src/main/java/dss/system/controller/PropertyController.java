@@ -1,6 +1,5 @@
 package dss.system.controller;
 
-
 import dss.system.dto.PropertyDto;
 import dss.system.service.PropertyService;
 import java.util.List;
@@ -27,9 +26,10 @@ public class PropertyController {
         List<PropertyDto> propertyDtoList = propertyService.findAll();
         return new ResponseEntity<>(propertyDtoList, HttpStatus.OK);
     }
+
     @PostMapping("/")
-    public ResponseEntity<List<PropertyDto>> saveProperty() {
-       propertyService.findAll();
-        return new ResponseEntity<>( HttpStatus.OK);
+    public ResponseEntity<List<PropertyDto>> saveProperty(List<PropertyDto> dtoList) {
+        List<PropertyDto> propertyDtoList = propertyService.saveAll(dtoList);
+        return new ResponseEntity<>(propertyDtoList, HttpStatus.OK);
     }
 }
