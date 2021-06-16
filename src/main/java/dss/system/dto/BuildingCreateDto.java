@@ -1,5 +1,6 @@
 package dss.system.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BuildingPropertyDto {
-    private Long id;
-    private PropertyDto title;
-    private String value;
+public class BuildingCreateDto {
+    private String title;
+    private String address;
+    private List<BuildingPropertyCreateDto> buildingProperties;
 }

@@ -1,6 +1,8 @@
 package dss.system.service.implementation;
 
+import dss.system.dto.BuildingCreateDto;
 import dss.system.dto.BuildingDto;
+import dss.system.dto.SearchRequestDto;
 import dss.system.entity.Building;
 import dss.system.repository.BuildingRepository;
 import dss.system.service.BuildingService;
@@ -29,6 +31,13 @@ public class BuildingServiceImp implements BuildingService {
     }
 
     @Override
+    public BuildingDto save(BuildingCreateDto buildingDto) {
+        Building newBuilding = modelMapper.map(buildingDto, Building.class);
+        buildingRepository.save(newBuilding);
+        return modelMapper.map(newBuilding, BuildingDto.class);
+    }
+
+    @Override
     public boolean delete(BuildingDto buildingDto) {
         Building newBuilding = modelMapper.map(buildingDto, Building.class);
         buildingRepository.delete(newBuilding);
@@ -44,10 +53,24 @@ public class BuildingServiceImp implements BuildingService {
     }
 
     @Override
-    public List<BuildingDto> getByPropertiesList(List<Long> propertiesIds) {
-        return buildingRepository.findByBuildingPropertiesIn(propertiesIds)
+    public List<BuildingDto> getAllByIds(List<Long> ids) {
+        return buildingRepository.findAllById(ids)
                 .stream()
                 .map(building -> modelMapper.map(building, BuildingDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BuildingDto> getByPropertiesList(List<Long> propertiesIds) {
+        return buildingRepository.getBuildingByPropertiesList(propertiesIds)
+                .stream()
+                .map(building -> modelMapper.map(building, BuildingDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Long> findAllByBuildingPropertiesIsIn(SearchRequestDto searchRequestDto) {
+        return buildingRepository.findAllByBuildingPropertiesIsIn(searchRequestDto.getBuildingId(),
+                                                        searchRequestDto.getPropertiesIds());
     }
 }

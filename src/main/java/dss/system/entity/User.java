@@ -27,15 +27,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-    @NotNull(message = "Name can't be null")
-    private String name;
-    @NotNull(message = "FamilyName can't be null")
-    private String familyName;
-
-    @NotNull(message = "Date of birth can't be null")
-    @PastOrPresent(message = "Date of birth couldn't be in the future")
-    @DateTimeFormat(pattern = Constants.PATTERN_DATE)
-    private LocalDate dateOfBirth;
 
     @NotNull(message = "Email can't be null")
     @Column(unique = true, nullable = false)
@@ -43,5 +34,4 @@ public class User {
 
     @NotNull(message = "Password can't be null")
     private String password;
-
 }

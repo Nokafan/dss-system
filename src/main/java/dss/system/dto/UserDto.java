@@ -15,10 +15,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 public class UserDto {
     private Long id;
-    private String name;
-    private String familyName;
-    @DateTimeFormat(pattern = Constants.PATTERN_DATE)
-    private LocalDate dateOfBirth;
     private String email;
     private String password;
 }
