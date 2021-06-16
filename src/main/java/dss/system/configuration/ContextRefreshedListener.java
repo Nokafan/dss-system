@@ -36,12 +36,14 @@ public class ContextRefreshedListener implements ApplicationListener<ContextRefr
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         propertyRepository.saveAll(createDemoProperties());
         log.info("List of properties are saved");
-        List<BuildingProperty> buildingOneProperties = buildingPropertyRepository.saveAll(createDemoBuildingOneProperties());
-        List<BuildingProperty> buildingTwoProperties = buildingPropertyRepository.saveAll(createDemoBuildingTwoProperties());
+//        List<BuildingProperty> buildingOneProperties = buildingPropertyRepository.saveAll(createDemoBuildingOneProperties());
+//        List<BuildingProperty> buildingTwoProperties = buildingPropertyRepository.saveAll(createDemoBuildingTwoProperties());
 
         List<Building> demoBuilding = createDemoBuilding();
-        demoBuilding.get(0).setBuildingProperties(buildingOneProperties);
-        demoBuilding.get(1).setBuildingProperties(buildingTwoProperties);
+        demoBuilding.get(0).setBuildingProperties(createDemoBuildingOneProperties());
+        demoBuilding.get(1).setBuildingProperties(createDemoBuildingTwoProperties());
+//        demoBuilding.get(0).setBuildingProperties(buildingOneProperties);
+//        demoBuilding.get(1).setBuildingProperties(buildingTwoProperties);
 
         buildingRepository.saveAll(demoBuilding);
         log.info("List of buildings are saved");

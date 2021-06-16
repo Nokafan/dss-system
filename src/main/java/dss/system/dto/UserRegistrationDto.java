@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Data
 @Builder
@@ -18,13 +18,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class UserRegistrationDto {
     @ValidName
     private String name;
-    @ValidName
-    private String familyName;
-    @DateTimeFormat(pattern = PATTERN_DATE)
-    private String dateOfBirth;
     @ValidEmail
     private String email;
     @ValidPassword
     private String password;
-    private boolean deleted;
 }

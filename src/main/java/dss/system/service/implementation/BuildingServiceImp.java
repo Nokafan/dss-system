@@ -45,7 +45,7 @@ public class BuildingServiceImp implements BuildingService {
 
     @Override
     public List<BuildingDto> getByPropertiesList(List<Long> propertiesIds) {
-        return buildingRepository.getAllByBuildingPropertiesIsIn(propertiesIds)
+        return buildingRepository.getBuildingByPropertiesList(propertiesIds)
                 .stream()
                 .map(building -> modelMapper.map(building, BuildingDto.class))
                 .collect(Collectors.toList());
