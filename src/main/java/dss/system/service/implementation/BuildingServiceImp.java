@@ -16,8 +16,7 @@ public class BuildingServiceImp implements BuildingService {
     private final BuildingRepository buildingRepository;
 
     @Autowired
-    public BuildingServiceImp(ModelMapper modelMapper,
-                              BuildingRepository buildingRepository) {
+    public BuildingServiceImp(ModelMapper modelMapper, BuildingRepository buildingRepository) {
         this.modelMapper = modelMapper;
         this.buildingRepository = buildingRepository;
     }
@@ -30,9 +29,10 @@ public class BuildingServiceImp implements BuildingService {
     }
 
     @Override
-    public void delete(BuildingDto buildingDto) {
+    public boolean delete(BuildingDto buildingDto) {
         Building newBuilding = modelMapper.map(buildingDto, Building.class);
         buildingRepository.delete(newBuilding);
+        return !buildingRepository.findById(buildingDto.getId()).isPresent();
     }
 
     @Override
