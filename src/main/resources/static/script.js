@@ -1,13 +1,15 @@
+import './register-login.js'
+
+localStorage.token ?  axios.defaults.headers.common['Authorization'] = localStorage.token : null;
+
 $(document).ready(function () {
-
-
-
-    $('.login').click(function () {
-        createLogin();
-    })
 
 $('.register').click(function () {
         createRegister();
+    })
+
+    $('.login').click(function () {
+        createLogin();
     })
 
 
@@ -22,15 +24,15 @@ $('.register').click(function () {
                     <div id="myModal">
                           <h5>Login</h5>
                               <div class="loginList_wrapper">
-                                    <form id="loginForm" action="" method="post">
+                                    <form id="loginForm">
                                         <div class="email_area">
                                             <span>Email</span>
-                                             <input type="email" class="login_mail" placeholder="Enter your mail">
+                                             <input type="email" name="login"  class="login_mail" placeholder="Enter your mail">
                                         </div>
                                         
                                         <div class="pass_area">
                                             <span>Password</span>
-                                            <input type="password" class="login_password" placeholder="Password">
+                                            <input type="password" name="password" class="login_password" placeholder="Password">
                                          </div>
                                          
                                           <div class="login_form_btn-area">
@@ -64,17 +66,17 @@ $('.register').click(function () {
                                     
                                         <div class="email_area-register">
                                             <span>Enter your Email for registration</span>
-                                            <input type="email" class="register_mail" placeholder="Enter your mail">
+                                            <input name="email" type="email" data-validate="email" class="register_mail" placeholder="Enter your mail">
                                          </div>
                                          
                                         <div class="pass_area-register">
                                              <span>Enter your Password</span>
-                                             <input type="password" class="register_password" placeholder="Password">
+                                             <input name="password" type="password" data-validate="password" class="register_password" placeholder="Password">
                                         </div> 
                                         
                                         <div class="confirm_pass_area-register">
                                              <span>Confirm your Password</span>
-                                             <input type="password" class="register_password" placeholder="Confirm password">
+                                             <input name="password2" type="password" data-validate="password2" class="register_password" placeholder="Confirm password">
                                         </div>
                                         
                                         <div class="register_form_btn-area">
@@ -115,8 +117,5 @@ $('.register').click(function () {
             })
         })
     }
-
-
-
 
 });
