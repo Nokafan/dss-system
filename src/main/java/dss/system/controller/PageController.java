@@ -6,15 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
     @GetMapping("/")
-    public String startPage(){
+    public String startPage() {
         return "index";
     }
+
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage() {
         return "login";
     }
+
     @GetMapping("/registration")
-    public String registration(){
+    public String registration() {
         return "registration";
     }
     @GetMapping("/workspace")
