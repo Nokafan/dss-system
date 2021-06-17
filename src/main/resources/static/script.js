@@ -6,10 +6,71 @@ $(document).ready(function () {
         createLogin();
     })
 
-$('.register').click(function () {
+    $('.register').click(function () {
         createRegister();
     })
 
+    function showNextQuestion (questionList){
+        showQuestion(questionList);
+        if (questionList.length === 0){
+            return console.log('Empty array');
+        }
+    }
+
+    function showAnswerVariant (questionID) {
+
+        axios.get(`/api/building/property/${questionID.id}`)
+            .then(test2 => {
+
+                createAnswerVariant (test2);
+                /*const answers =
+                console.log(answers);
+                console.log(test2);*/
+            })
+
+    }
+
+    function createAnswerVariant (test2) {
+        $('#answer_items').html(test2.data.map(name => {return answerVariant (name)}));
+    }
+
+    function answerVariant (values) {
+        return(
+            `
+            <div data-id="${values.id}">${values.value}</div>   
+            `
+        )
+    }
+
+    axios.get('/api/property/')
+        .then(response =>{
+
+            let questionList = response.data;
+
+            showQuestion(questionList.shift());
+
+            $('.click').click(function (){
+                showNextQuestion (questionList.shift());
+            });
+
+
+        })
+
+    axios.get('/api/building/')
+        .then(response =>{
+
+            $('.building_wrapper').html(response.data.map(info => {return showBuildings (info)}));
+        })
+
+
+        function showBuildings(info) {
+        return(`
+            <div class="building_item">
+            <p>${info.address}</p>
+            <p>${info.title}</p>
+            </div>   
+        `)
+        }
 
 
     function createLogin() {
@@ -95,6 +156,11 @@ $('.register').click(function () {
         initPopUp ();
     }
 
+    function showQuestion(questionList) {
+        document.getElementById('ask_wrapper').innerHTML = ` <div> ${questionList.title}</div>`;
+
+        showAnswerVariant (questionList)
+    }
 
 
     function initPopUp (){
