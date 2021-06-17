@@ -54,3 +54,37 @@
     transform: scale(1.05);
     text-decoration: underline;
 }
+
+.notification-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 20px;
+    width: 100%;
+    animation: notification 1s alternate;
+}
+@keyframes notification {
+    from {
+        transform: translate(0, -200%);
+    }
+
+    to{
+        transform: translate(0, 0);
+    }
+
+}
+
+.success {
+    background-color: #8fce56;
+    color: #0e490e;
+}
+.fail {
+    background-color: #aa5353;
+    color: red;
+}
+
+.type-error {
+    margin: 0;
+    color: red;
+}

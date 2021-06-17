@@ -1,10 +1,5 @@
+import './register-login.js'
 $(document).ready(function () {
-
-
-
-    $('.login').click(function () {
-        createLogin();
-    })
 
 $('.register').click(function () {
         createRegister();
@@ -25,7 +20,7 @@ $('.register').click(function () {
                                     <form id="loginForm" action="" method="post">
                                         <div class="email_area">
                                             <span>Email</span>
-                                             <input type="email" class="login_mail" placeholder="Enter your mail">
+                                             <input type="email"  class="login_mail" placeholder="Enter your mail">
                                         </div>
                                         
                                         <div class="pass_area">
@@ -64,17 +59,17 @@ $('.register').click(function () {
                                     
                                         <div class="email_area-register">
                                             <span>Enter your Email for registration</span>
-                                            <input type="email" class="register_mail" placeholder="Enter your mail">
+                                            <input name="email" type="email" data-validate="email" class="register_mail" placeholder="Enter your mail">
                                          </div>
                                          
                                         <div class="pass_area-register">
                                              <span>Enter your Password</span>
-                                             <input type="password" class="register_password" placeholder="Password">
+                                             <input name="password" type="password" data-validate="password" class="register_password" placeholder="Password">
                                         </div> 
                                         
                                         <div class="confirm_pass_area-register">
                                              <span>Confirm your Password</span>
-                                             <input type="password" class="register_password" placeholder="Confirm password">
+                                             <input name="password2" type="password" data-validate="password2" class="register_password" placeholder="Confirm password">
                                         </div>
                                         
                                         <div class="register_form_btn-area">
@@ -115,8 +110,4 @@ $('.register').click(function () {
             })
         })
     }
-
-
-
-
 });
