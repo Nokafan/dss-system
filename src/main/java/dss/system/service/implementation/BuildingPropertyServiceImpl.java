@@ -1,6 +1,7 @@
 package dss.system.service.implementation;
 
 import dss.system.dto.BuildingPropertyDto;
+import dss.system.dto.SearchBuildingPropertyDto;
 import dss.system.entity.BuildingProperty;
 import dss.system.exceptions.DataProcessingException;
 import dss.system.repository.BuildingPropertyRepository;
@@ -42,11 +43,24 @@ public class BuildingPropertyServiceImpl implements BuildingPropertyService {
 
     @Override
     public List<BuildingPropertyDto> getVariationsByTitleId(long id) {
-        return buildingPropertyRepository.getAllByTitle_Id(id)
+        return buildingPropertyRepository.findAllByTitle_Id(id)
                 .stream()
                 .map(buildingProperty -> modelMapper.map(
                         buildingProperty,
                         BuildingPropertyDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Long> findBuildingsPropertyByVariations(SearchBuildingPropertyDto searchBuildingPropertyDto) {
+        List<Long> collect = buildingPropertyRepository.findByVariations(
+                searchBuildingPropertyDto.getPropertyId(),
+                searchBuildingPropertyDto.getVariation());
+        return collect;
+    }
+
+    @Override
+    public List<String> getUniqueBuildingPropertyVariations(Long id) {
+        return buildingPropertyRepository.getBuildingPropertyVariations(id);
     }
 }

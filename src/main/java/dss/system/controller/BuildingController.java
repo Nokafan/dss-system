@@ -1,7 +1,7 @@
 package dss.system.controller;
 
-import dss.system.dto.BuildingCreateDto;
 import dss.system.dto.BuildingDto;
+import dss.system.dto.CreateBuildingDto;
 import dss.system.dto.SearchRequestDto;
 import dss.system.service.BuildingService;
 import java.util.List;
@@ -27,7 +27,7 @@ public class BuildingController {
     }
 
     @PostMapping("/")
-    public BuildingDto saveBuilding(@Valid @RequestBody BuildingCreateDto buildingDto) {
+    public BuildingDto saveBuilding(@Valid @RequestBody CreateBuildingDto buildingDto) {
         return buildingService.save(buildingDto);
     }
 
