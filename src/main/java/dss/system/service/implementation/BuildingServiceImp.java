@@ -1,7 +1,7 @@
 package dss.system.service.implementation;
 
-import dss.system.dto.BuildingCreateDto;
 import dss.system.dto.BuildingDto;
+import dss.system.dto.CreateBuildingDto;
 import dss.system.dto.SearchRequestDto;
 import dss.system.entity.Building;
 import dss.system.repository.BuildingRepository;
@@ -31,7 +31,7 @@ public class BuildingServiceImp implements BuildingService {
     }
 
     @Override
-    public BuildingDto save(BuildingCreateDto buildingDto) {
+    public BuildingDto save(CreateBuildingDto buildingDto) {
         Building newBuilding = modelMapper.map(buildingDto, Building.class);
         buildingRepository.save(newBuilding);
         return modelMapper.map(newBuilding, BuildingDto.class);
@@ -51,7 +51,6 @@ public class BuildingServiceImp implements BuildingService {
                 .map(building -> modelMapper.map(building, BuildingDto.class))
                 .collect(Collectors.toList());
     }
-
 
     public List<BuildingDto> getAllById(List<Long> ids) {
         return buildingRepository.findAllById(ids)
