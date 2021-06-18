@@ -51,3 +51,16 @@
 #answer_items div:hover{
     background-color: #727272;
 }
+
+.restart_search{
+    color: #fff;
+    background-color: #06b085;
+    padding: 8px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 20px auto;
+    width: 230px;
+}
+.restart_search:hover{
+    background-color: #727272;
+}

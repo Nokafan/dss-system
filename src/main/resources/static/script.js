@@ -42,10 +42,12 @@ $(document).ready(function () {
         )
     }
 
+
     getBuildings ()
         .then(response => {
             buldings = response;
-            createBuild(buldings)
+            createBuild(buldings);
+            chooseResultInfo(buldings);
         })
 
     function createBuild (response) {
@@ -61,7 +63,7 @@ $(document).ready(function () {
         }
     }*/
 
-
+    chooseResultInfo(buldings);
 
     $(document).on('click', '.anwser_item', function (e) {
         const value = e.target.textContent;
@@ -79,13 +81,48 @@ $(document).ready(function () {
         /*backBtn();*/
 
         axios.post(`/api/building/search`, sendRequest(test, value, buldings))
+
             .then(response => {
                 buldings = response.data;
                 createBuild(buldings);
-
+                chooseResultInfo(buldings);
             });
     })
 
+
+    function chooseResultInfo(buldings) {
+
+        if (buldings.length >= 1){
+            $('.result_info').html(`<h5>Знайдено варiантiв: ${buldings.length}</h5>`)
+        } else {
+            $('.result_info').html(`
+            <h5>Варiантiв не знайдено</h5>
+            <div class="restart_search">Почати спочатку</div>
+            `)
+        }
+
+    }
+
+
+    $(document).on('click', '.restart_search', function (e) {
+
+        getBuildings ()
+            .then(response => {
+                buldings = response;
+                createBuild(buldings);
+                chooseResultInfo(buldings);
+            })
+        getQuest()
+            .then(response => {
+
+                questionList = response;
+                const  questionId = questionList.shift()
+                legend.push(questionId);
+                showQuestion(questionId);
+
+            })
+
+    })
 
    /* function backBtn() {
         return(
