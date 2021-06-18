@@ -4,7 +4,7 @@ localStorage.token ?  axios.defaults.headers.common['Authorization'] = localStor
 
 $(document).ready(function () {
 
-$('.register').click(function () {
+    $('.register').click(function () {
         createRegister();
     })
 
@@ -12,23 +12,57 @@ $('.register').click(function () {
         createLogin();
     })
 
+
+
     function showNextQuestion (questionList){
-        showQuestion(questionList);
+        //showQuestion(questionList);
         if (questionList.length === 0){
             return console.log('Empty array');
         }
     }
 
-    function showAnswerVariant (questionID) {
 
-        axios.get(`/api/building/property/${questionID.id}`)
-            .then(test2 => {
 
-                createAnswerVariant (test2);
-                /*const answers =
-                console.log(answers);
-                console.log(test2);*/
+    axios.get('/api/property/')
+        .then(response =>{
+
+            let questionList = response.data;
+
+            showQuestion(questionList.shift());
+
+            $(document).on('click', '.anwser_item', function (e) {
+              //showNextQuestion (questionList.shift());
+
+                console.log( 'ansver ' + e.target.value)
+                const questId = showQuestion(questionList.shift())
+                console.log('quest ' + questId)
+
             })
+
+        })
+
+    function showQuestion(questionList) {
+        document.getElementById('ask_wrapper').innerHTML = ` <div id="${questionList.id}"> ${questionList.title}</div>`;
+
+        showAnswerVariant (questionList);
+
+        let testtest = questionList.id ;
+        console.log(testtest)
+        return testtest  ;
+    }
+
+
+
+    function showAnswerVariant (questionID) {
+        return(
+            axios.get(`/api/building/property/${questionID.id}`)
+                .then(test2 => {
+
+                    createAnswerVariant (test2);
+
+                })
+        )
+
 
     }
 
@@ -39,24 +73,12 @@ $('.register').click(function () {
     function answerVariant (values) {
         return(
             `
-            <div data-id="${values.id}">${values.value}</div>   
+            <div class="anwser_item" data-id="${values.id}">${values.value}</div>   
             `
         )
     }
 
-    axios.get('/api/property/')
-        .then(response =>{
 
-            let questionList = response.data;
-
-            showQuestion(questionList.shift());
-
-            $('.click').click(function (){
-                showNextQuestion (questionList.shift());
-            });
-
-
-        })
 
     axios.get('/api/building/')
         .then(response =>{
@@ -157,12 +179,6 @@ $('.register').click(function () {
         initPopUp ();
     }
 
-    function showQuestion(questionList) {
-        document.getElementById('ask_wrapper').innerHTML = ` <div> ${questionList.title}</div>`;
-
-        showAnswerVariant (questionList)
-    }
-
 
     function initPopUp (){
 
@@ -182,5 +198,11 @@ $('.register').click(function () {
             })
         })
     }
+
+
+
+
+
+
 
 });
