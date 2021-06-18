@@ -2,8 +2,9 @@ package dss.system.controller;
 
 import dss.system.dto.BuildingDto;
 import dss.system.dto.CreateBuildingDto;
-import dss.system.dto.SearchRequestDto;
+import dss.system.dto.SearchBuildingRequestDto;
 import dss.system.service.BuildingService;
+import dss.system.service.SearchService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/building")
 public class BuildingController {
     private final BuildingService buildingService;
+    private final SearchService searchService;
 
     @Autowired
-    public BuildingController(BuildingService buildingService) {
+    public BuildingController(BuildingService buildingService,
+                              SearchService searchService) {
         this.buildingService = buildingService;
+        this.searchService = searchService;
     }
 
     @PostMapping("/")
@@ -51,9 +55,10 @@ public class BuildingController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Long>> getByPropertiesList(
-            @RequestBody SearchRequestDto searchRequestDto) {
-        List<Long> longList = buildingService.findAllByBuildingPropertiesIsIn(searchRequestDto);
-        return new ResponseEntity<>(longList, HttpStatus.OK);
+    public ResponseEntity<List<BuildingDto>> getByPropertiesList(
+            @RequestBody SearchBuildingRequestDto searchRequestDto) {
+        List<BuildingDto> buildingDtoList =
+                searchService.findBuildingsByListParams(searchRequestDto);
+        return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
     }
 }

@@ -2,7 +2,6 @@ package dss.system.service.implementation;
 
 import dss.system.dto.CreatePropertyDto;
 import dss.system.dto.PropertyDto;
-import dss.system.dto.SearchBuildingPropertyDto;
 import dss.system.entity.Property;
 import dss.system.exceptions.DataProcessingException;
 import dss.system.repository.PropertyRepository;
@@ -39,18 +38,6 @@ public class PropertyServiceImpl implements PropertyService {
         Property property = modelMapper.map(createPropertyDto, Property.class);
         Property savedProperty = propertyRepository.save(property);
         return modelMapper.map(savedProperty, PropertyDto.class);
-    }
-
-    @Override
-    public List<PropertyDto> saveAll(List<PropertyDto> propertyDtoList) {
-        List<Property> propertyList = propertyDtoList.stream()
-                .map(propertyDto -> modelMapper.map(propertyDto, Property.class))
-                .collect(Collectors.toList());
-        List<PropertyDto> propertyDtos = propertyRepository.saveAll(propertyList)
-                .stream()
-                .map(property -> modelMapper.map(property, PropertyDto.class))
-                .collect(Collectors.toList());
-        return propertyDtos;
     }
 
     @Override

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateBuildingPropertyDto {
+
     private PropertyDto title;
+
     private String value;
 }

@@ -31,13 +31,6 @@ public class PropertyController {
         return new ResponseEntity<>(propertyDtoList, HttpStatus.OK);
     }
 
-//    @PostMapping("/")
-//    public ResponseEntity<List<PropertyDto>> saveProperty(
-//            @RequestBody List<PropertyDto> dtoList) {
-//        List<PropertyDto> propertyDtoList = propertyService.saveAll(dtoList);
-//        return new ResponseEntity<>(propertyDtoList, HttpStatus.OK);
-//    }
-
     @PostMapping("/")
     public ResponseEntity<PropertyDto> createProperty(
             @RequestBody CreatePropertyDto createPropertyDto) {

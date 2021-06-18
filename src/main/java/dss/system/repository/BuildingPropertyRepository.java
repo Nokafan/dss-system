@@ -9,15 +9,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BuildingPropertyRepository extends JpaRepository<BuildingProperty, Long> {
-    List<BuildingProperty> getAllByTitle_Id(Long id);
 
     List<BuildingProperty> findAllByTitle_Id(Long id);
 
-    @Query(value = "SELECT pv.id from property_variations pv " +
-            "where pv.title_id = :propertyId and pv.value like :variation", nativeQuery = true)
-    List<Long> findByVariations(@Param("propertyId") Long propertyId,
-                                @Param("variation") String variation);
+    @Query(value = "SELECT pv.id FROM property_variations pv "
+            + "WHERE pv.title_id = :propertyId AND pv.value IN :variations", nativeQuery = true)
+    List<Long> findBuildingPropertiesIdByVariations(@Param("propertyId") Long propertyId,
+                                                    @Param("variations") List<String> variations);
 
-    @Query("SELECT DISTINCT bp.value from BuildingProperty bp WHERE bp.title.id = :id")
-    List<String> getBuildingPropertyVariations(Long id);
+    @Query("SELECT DISTINCT bp.value FROM BuildingProperty bp WHERE bp.title.id = :id")
+    List<String> getDistinctBuildingPropertyVariations(Long id);
 }

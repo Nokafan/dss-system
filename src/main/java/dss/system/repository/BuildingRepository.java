@@ -10,12 +10,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, Long> {
 
-    @Query(value = "select b.id from building b "
-            + "join building_properties bp "
-            + "on b.id = bp.building_id "
-            + "where b.id in (:buildingId) and bp.building_properties_id in "
+    @Query(value = "SELECT * FROM building b "
+            + "JOIN building_properties bp "
+            + "ON b.id = bp.building_id "
+            + "WHERE b.id IN (:buildingId) AND bp.building_properties_id IN "
             + "(:buildingPropertiesId)", nativeQuery = true)
-    List<Long> findAllByBuildingPropertiesIsIn(
+    List<Building> findAllBuildingsByBuildingPropertiesIsIn(
             @Param("buildingId") List<Long> buildingId,
             @Param("buildingPropertiesId") List<Long> buildingPropertiesId);
 }

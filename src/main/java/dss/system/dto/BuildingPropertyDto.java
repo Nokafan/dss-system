@@ -10,7 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BuildingPropertyDto {
+
     private Long id;
+
     private PropertyDto title;
+
     private String value;
 }
