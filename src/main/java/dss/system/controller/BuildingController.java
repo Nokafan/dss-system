@@ -54,7 +54,7 @@ public class BuildingController {
         return new ResponseEntity<>(buildingDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<List<BuildingDto>> getByPropertiesList(
             @RequestBody SearchBuildingRequestDto searchRequestDto) {
         List<BuildingDto> buildingDtoList =

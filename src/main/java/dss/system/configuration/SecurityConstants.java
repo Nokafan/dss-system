@@ -10,6 +10,5 @@ public final class SecurityConstants {
     public static final String LOGIN = "/login";
     public static final String REGISTRATION = "/registration";
     public static final String ROOT = "/";
-    public static final String WORKSPACE = "/workspace";
     public static final String STATIC = "/static/**";
 }

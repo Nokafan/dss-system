@@ -4,6 +4,11 @@ localStorage.token ?  axios.defaults.headers.common['Authorization'] = localStor
 
 $(document).ready(function () {
 
+    let questionList = [];
+    let buldings = [];
+    let history = [];
+    let legend = [];
+
     $('.register').click(function () {
         createRegister();
     })
@@ -12,57 +17,135 @@ $(document).ready(function () {
         createLogin();
     })
 
+    function getQuest () {
+        return(
+            axios.get('/api/property/')
+                .then(response => response.data)
+        )
+    }
 
+    getQuest()
+        .then(response => {
 
+            questionList = response;
+            const  questionId = questionList.shift()
+            legend.push(questionId);
+            showQuestion(questionId);
+
+        })
+
+    function getBuildings () {
+        return (
+
+            axios.get('/api/building/')
+                .then(response => response = response.data)
+        )
+    }
+
+    getBuildings ()
+        .then(response => {
+            buldings = response;
+            createBuild(buldings)
+        })
+
+    function createBuild (response) {
+
+        $('.building_wrapper').html(response.map(info => {return showBuildings (info)}))
+
+    }
+/*
     function showNextQuestion (questionList){
         //showQuestion(questionList);
         if (questionList.length === 0){
             return console.log('Empty array');
         }
+    }*/
+
+
+
+    $(document).on('click', '.anwser_item', function (e) {
+        const value = e.target.textContent;
+
+        const  test = {
+            id: document.querySelector('#ask_wrapper div').id,
+            title: document.querySelector('#ask_wrapper div').textContent
+        }
+
+        const questId = showQuestion(questionList.shift())
+
+
+        history.push({test, value, buldings});
+
+        /*backBtn();*/
+
+        axios.post(`/api/building/search`, sendRequest(test, value, buldings))
+            .then(response => {
+                buldings = response.data;
+                createBuild(buldings);
+
+            });
+    })
+
+
+   /* function backBtn() {
+        return(
+            $('.btnBack_area').html(
+            `<div class="back_btn">Back</div>
+            `)
+        )
+    }*/
+
+
+   /* $(document).on('click', '.back_btn', function (e){
+
+        const historyPop =  history.pop();
+        questionList.unshift(historyPop.test)
+
+        showQuestion(historyPop.test)
+
+        axios.post(`/api/building/search`, sendRequest(historyPop.test, historyPop.value, historyPop.buldings))
+            .then(response => {
+                buldings = response.data;
+                createBuild(buldings);
+
+            });
+    });*/
+
+
+    function sendRequest (idQuest, answerValue, buldings) {
+
+        let allBuild = buldings.map( element => element.id) ;
+
+        const info = {
+            questionId : idQuest.id,
+            variations : [answerValue],
+            buildings : allBuild
+        }
+
+        return info;
     }
 
 
-
-    axios.get('/api/property/')
-        .then(response =>{
-
-            let questionList = response.data;
-
-            showQuestion(questionList.shift());
-
-            $(document).on('click', '.anwser_item', function (e) {
-              //showNextQuestion (questionList.shift());
-
-                console.log( 'ansver ' + e.target.value)
-                const questId = showQuestion(questionList.shift())
-                console.log('quest ' + questId)
-
-            })
-
-        })
 
     function showQuestion(questionList) {
         document.getElementById('ask_wrapper').innerHTML = ` <div id="${questionList.id}"> ${questionList.title}</div>`;
 
         showAnswerVariant (questionList);
 
-        let testtest = questionList.id ;
-        console.log(testtest)
-        return testtest  ;
+        let questId = questionList ;
+        return questId  ;
     }
 
 
 
     function showAnswerVariant (questionID) {
         return(
-            axios.get(`/api/building/property/${questionID.id}`)
+            axios.get(`/api/building/property/unique/${questionID.id}`)
                 .then(test2 => {
-
                     createAnswerVariant (test2);
 
                 })
         )
-
 
     }
 
@@ -73,19 +156,10 @@ $(document).ready(function () {
     function answerVariant (values) {
         return(
             `
-            <div class="anwser_item" data-id="${values.id}">${values.value}</div>   
+            <div class="anwser_item">${values}</div>   
             `
         )
     }
-
-
-
-    axios.get('/api/building/')
-        .then(response =>{
-
-            $('.building_wrapper').html(response.data.map(info => {return showBuildings (info)}));
-        })
-
 
     function showBuildings(info) {
         return(`
