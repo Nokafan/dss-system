@@ -11,7 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateBuildingDto {
+
     private String title;
+
     private String address;
+
     private List<CreateBuildingPropertyDto> buildingProperties;
 }

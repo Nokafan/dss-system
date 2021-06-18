@@ -1,5 +1,6 @@
 package dss.system.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchBuildingPropertyDto {
-    private Long propertyId;
+public class SearchBuildingRequestDto {
 
-    private String variation;
+    private Long questionId;
+
+    private List<String> variations;
+
+    private List<Long> buildings;
 }
