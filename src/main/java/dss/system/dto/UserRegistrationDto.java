@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRegistrationDto {
+
     @ValidEmail
     private String email;
+
     @ValidPassword
     private String password;
 }

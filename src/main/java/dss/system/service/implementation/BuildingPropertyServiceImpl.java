@@ -1,9 +1,7 @@
 package dss.system.service.implementation;
 
 import dss.system.dto.BuildingPropertyDto;
-import dss.system.dto.SearchBuildingPropertyDto;
 import dss.system.entity.BuildingProperty;
-import dss.system.exceptions.DataProcessingException;
 import dss.system.repository.BuildingPropertyRepository;
 import dss.system.service.BuildingPropertyService;
 import java.util.List;
@@ -34,14 +32,6 @@ public class BuildingPropertyServiceImpl implements BuildingPropertyService {
     }
 
     @Override
-    public BuildingPropertyDto findById(Long id) {
-        BuildingProperty buildingProperty = buildingPropertyRepository.findById(id)
-                .orElseThrow(() ->
-                        new DataProcessingException("Couldn`t find BuildingProperty by id: " + id));
-        return modelMapper.map(buildingProperty, BuildingPropertyDto.class);
-    }
-
-    @Override
     public List<BuildingPropertyDto> getVariationsByTitleId(long id) {
         return buildingPropertyRepository.findAllByTitle_Id(id)
                 .stream()
@@ -52,15 +42,16 @@ public class BuildingPropertyServiceImpl implements BuildingPropertyService {
     }
 
     @Override
-    public List<Long> findBuildingsPropertyByVariations(SearchBuildingPropertyDto searchBuildingPropertyDto) {
-        List<Long> collect = buildingPropertyRepository.findByVariations(
-                searchBuildingPropertyDto.getPropertyId(),
-                searchBuildingPropertyDto.getVariation());
-        return collect;
+    public List<String> getUniqueBuildingPropertyVariations(Long id) {
+        return buildingPropertyRepository.getDistinctBuildingPropertyVariations(id);
     }
 
     @Override
-    public List<String> getUniqueBuildingPropertyVariations(Long id) {
-        return buildingPropertyRepository.getBuildingPropertyVariations(id);
+    public List<Long> findBuildingPropertiesIdByVariations(
+            Long propertyId,
+            List<String> variations) {
+        return buildingPropertyRepository.findBuildingPropertiesIdByVariations(
+                propertyId,
+                variations);
     }
 }
