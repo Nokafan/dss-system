@@ -28,7 +28,7 @@ $(document).on('submit', '#loginForm', function (e) {
         .then(res => {
             localStorage.setItem('token', res.headers.authorization)
             axios.defaults.headers.common['Authorization'] = res.headers.authorization
-            window.location.href = '/workspace.html'
+            window.location.href = '/workspace'
         })
         .catch((e) => {
             console.log( e.message)

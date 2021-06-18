@@ -4,7 +4,12 @@ localStorage.token ?  axios.defaults.headers.common['Authorization'] = localStor
 
 $(document).ready(function () {
 
-$('.register').click(function () {
+    let questionList = [];
+    let buldings = [];
+    let history = [];
+    let legend = [];
+
+    $('.register').click(function () {
         createRegister();
     })
 
@@ -12,7 +17,189 @@ $('.register').click(function () {
         createLogin();
     })
 
+    function getQuest () {
+        return(
+            axios.get('/api/property/')
+                .then(response => response.data)
+        )
+    }
 
+    getQuest()
+        .then(response => {
+
+            questionList = response;
+            const  questionId = questionList.shift()
+            legend.push(questionId);
+            showQuestion(questionId);
+
+        })
+
+    function getBuildings () {
+        return (
+
+            axios.get('/api/building/')
+                .then(response => response = response.data)
+        )
+    }
+
+
+    getBuildings ()
+        .then(response => {
+            buldings = response;
+            createBuild(buldings);
+            chooseResultInfo(buldings);
+        })
+
+    function createBuild (response) {
+
+        $('.building_wrapper').html(response.map(info => {return showBuildings (info)}))
+
+    }
+
+
+    chooseResultInfo(buldings);
+
+    $(document).on('click', '.anwser_item', function (e) {
+        const value = e.target.textContent;
+
+        const  test = {
+            id: document.querySelector('#ask_wrapper div').id,
+            title: document.querySelector('#ask_wrapper div').textContent
+        }
+
+        const questId = showQuestion(questionList.shift())
+
+
+        history.push({test, value, buldings});
+
+        /*backBtn();*/
+
+        axios.post(`/api/building/search`, sendRequest(test, value, buldings))
+
+            .then(response => {
+                buldings = response.data;
+                createBuild(buldings);
+                chooseResultInfo(buldings);
+            });
+    })
+
+
+    function chooseResultInfo(buldings) {
+
+        if (buldings.length >= 1){
+            $('.result_info').html(`<h5>Знайдено варiантiв: ${buldings.length}</h5>`)
+        } else {
+            $('.result_info').html(`
+            <h5>Варiантiв не знайдено</h5>
+            <div class="restart_search">Почати спочатку</div>
+            `)
+        }
+
+    }
+
+
+    $(document).on('click', '.restart_search', function (e) {
+
+        getBuildings ()
+            .then(response => {
+                buldings = response;
+                createBuild(buldings);
+                chooseResultInfo(buldings);
+            })
+        getQuest()
+            .then(response => {
+
+                questionList = response;
+                const  questionId = questionList.shift()
+                legend.push(questionId);
+                showQuestion(questionId);
+
+            })
+
+    })
+
+   /* function backBtn() {
+        return(
+            $('.btnBack_area').html(
+            `<div class="back_btn">Back</div>
+            `)
+        )
+    }*/
+
+
+   /* $(document).on('click', '.back_btn', function (e){
+
+        const historyPop =  history.pop();
+        questionList.unshift(historyPop.test)
+
+        showQuestion(historyPop.test)
+
+        axios.post(`/api/building/search`, sendRequest(historyPop.test, historyPop.value, historyPop.buldings))
+            .then(response => {
+                buldings = response.data;
+                createBuild(buldings);
+
+            });
+    });*/
+
+
+    function sendRequest (idQuest, answerValue, buldings) {
+
+        let allBuild = buldings.map( element => element.id) ;
+
+        const info = {
+            questionId : idQuest.id,
+            variations : [answerValue],
+            buildings : allBuild
+        }
+
+        return info;
+    }
+
+
+
+    function showQuestion(questionList) {
+        document.getElementById('ask_wrapper').innerHTML = ` <div id="${questionList.id}"> ${questionList.title}</div>`;
+
+        showAnswerVariant (questionList);
+
+        let questId = questionList ;
+        return questId  ;
+    }
+
+
+
+    function showAnswerVariant (questionID) {
+        return(
+            axios.get(`/api/building/property/unique/${questionID.id}`)
+                .then(test2 => {
+                    createAnswerVariant (test2);
+
+                })
+        )
+
+    }
+
+    function createAnswerVariant (test2) {
+        $('#answer_items').html(test2.data.map(name => {return answerVariant (name)}));
+    }
+
+    function answerVariant (values) {
+        return(
+            `
+            <div class="anwser_item">${values}</div>   
+            `
+        )
+    }
+
+    function showBuildings(info) {
+        return(`
+            <div class="building_item">
+            <p>${info.address}</p>
+            <p>${info.title}</p>
+            </div>   
+        `)
+    }
 
     function createLogin() {
 
@@ -98,7 +285,6 @@ $('.register').click(function () {
     }
 
 
-
     function initPopUp (){
 
         $('body').toggleClass('no_scroll');
@@ -117,5 +303,11 @@ $('.register').click(function () {
             })
         })
     }
+
+
+
+
+
+
 
 });

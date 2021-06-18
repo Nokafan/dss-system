@@ -19,4 +19,6 @@ public class PageController {
     public String registration() {
         return "registration";
     }
+    @GetMapping("/workspace")
+    public String workspace(){ return "workspace";}
 }
