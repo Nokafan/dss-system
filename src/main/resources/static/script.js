@@ -55,13 +55,7 @@ $(document).ready(function () {
         $('.building_wrapper').html(response.map(info => {return showBuildings (info)}))
 
     }
-/*
-    function showNextQuestion (questionList){
-        //showQuestion(questionList);
-        if (questionList.length === 0){
-            return console.log('Empty array');
-        }
-    }*/
+
 
     chooseResultInfo(buldings);
 
